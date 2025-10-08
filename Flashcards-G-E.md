@@ -22,17 +22,18 @@ This project is intended to:
 
 **Problem**
 
- Learning languages can be difficult and takes a lot of time. To be able to communicate in a language you need to have sufficient vocabulary.
+ Learning languages can be difficult and takes a lot of time. To be able to communicate in a language you need to have sufficient vocabulary. 
+ Only flipping flashcards doesn't let users see their progress. 
+ People have different mother languages like turkish, german and english and sometimes need multiple apps to learn different languages.
 
 **Scenario**
 
  The app is mobile and easy to use, so it can be used while commuting and anytime users need a quick study-session. It is a good way to enlarge your vocabulary or if there is a test soon to study for.
 
 **User stories:**
-1. As a user, I want to be able to change the main language.
-2. As a user, I want to have study-mode flashcards which I can flip to see the translation.
-3. As a user, I want to be able to test the learning progress so far by writing the answer.
-4. As a user, I want to repeat the test with the wrong answers.
+1. As a user, I want to be able to change the main language because that makes it easier for users with different mother languages.
+2. As a user, I want to be able to test the learning progress so far by writing the answer so I can see if I can write the learned words correctly.
+3. As a user, I want to repeat the test with the wrong answers so I can master them and have to repeat the whole vocabulary pack.
 
 **Use cases:**
 - Study-mode with normal flashcards

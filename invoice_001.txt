@@ -1,7 +1,7 @@
 🍕 PIZZA RP INVOICE
 ---------------------
-Margherita (Medium): CHF 12.50
-Salami (Large): CHF 15.00
-Funghi (Small): CHF 9.00
+1x Margherita (Medium) - CHF 12.50
+1x Salami (Large) - CHF 15.00
+1x Funghi (Small) - CHF 9.00
 ---------------------
 TOTAL: CHF 36.50

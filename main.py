@@ -43,7 +43,7 @@ def write_invoice(order, total, discounts_applied):
         f.write("🍕 PIZZA RP INVOICE\n")
         f.write("---------------------\n")
         for p in order:
-            f.write(f"{p['name']} ({p['size']}): CHF {p['price']:.2f}\n")
+            f.write(f"{format_item(p)}\n")
         f.write("---------------------\n")
         if discounts_applied:
             for d in discounts_applied:
@@ -61,6 +61,31 @@ def show_menu(menu):
     print("---------------------")
 
 
+def item_total(unit_price, quantity):
+    # a quantity of 0 or smaller never results in a negative amount
+    if quantity <= 0:
+        return 0.0
+    return unit_price * quantity
+
+
+def format_item(item):
+    total = item_total(item['price'], item['quantity'])
+    return f"{item['quantity']}x {item['name']} ({item['size']}) - CHF {total:.2f}"
+
+
+def ask_quantity():
+    while True:
+        quantity = input("Enter quantity: ").strip()
+        if not quantity.isdigit() or int(quantity) < 1:
+            print("⚠️ Invalid quantity.")
+            continue
+        return int(quantity)
+
+
+def calculate_subtotal(order):
+    return sum(item_total(p['price'], p['quantity']) for p in order)
+
+
 def create_order(menu):
     order = []
     while True:
@@ -70,17 +95,20 @@ def create_order(menu):
         if not choice.isdigit() or not (1 <= int(choice) <= len(menu)):
             print("⚠️ Invalid choice.")
             continue
-        order.append(menu[int(choice) - 1])
-        subtotal = sum(p['price'] for p in order)
-        print(f"Added! Current subtotal: CHF {subtotal:.2f}")
+        pizza = menu[int(choice) - 1]
+        quantity = ask_quantity()
+        item = {"name": pizza['name'], "size": pizza['size'], "price": pizza['price'], "quantity": quantity}
+        order.append(item)
+        print(f"Added! Current subtotal: CHF {calculate_subtotal(order):.2f}")
     return order
 
 
 def calculate_total(order):
-    total = sum(p['price'] for p in order)
+    total = calculate_subtotal(order)
     discounts = []
 
-    if len(order) > 3:
+    pizza_count = sum(p['quantity'] for p in order)
+    if pizza_count > 3:
         cheapest = min(order, key=lambda p: p['price'])
         total -= cheapest['price']
         discounts.append(f"Free pizza: {cheapest['name']} (-CHF {cheapest['price']:.2f})")
@@ -116,7 +144,7 @@ def main():
             total, discounts = calculate_total(order)
             print("\n--- ORDER SUMMARY ---")
             for p in order:
-                print(f"{p['name']} ({p['size']}) - CHF {p['price']:.2f}")
+                print(format_item(p))
             for d in discounts:
                 print(d)
             print(f"TOTAL: CHF {total:.2f}")
